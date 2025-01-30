@@ -1,0 +1,118 @@
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.content {
+    padding: 36px;
+    border: 1px solid lightgray;
+    background-color: white;
+    border-radius: 24px;
+    width: 420px;
+}
+
+.single-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+
+    input {
+        outline: none;
+        border: none;
+    }
+}
+
+.small-form {
+    width: fit-content;
+}
+
+.add-employee-btn {
+    padding: 8px 12px;
+    border: 1px solid lightgray;
+    border-radius: 21px;
+    background-color: darkcyan;
+}
+
+.select-department {
+    position: absolute;
+    border: 1px solid;
+    border-radius: 12px;
+    border-bottom-left-radius: 0;
+    background: white;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    left: 98px;
+    bottom: 46px;
+    gap: 12px;
+
+    button {
+        padding: 8px;
+        border-radius: 8px;
+
+        &:hover {
+            background-color: lightgray;
+        }
+    }
+}
+
+.bottom-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .cancel {
+        background-color: lightgray;
+    }
+}
+
+.placeholder {
+    color: lightgray;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+button:disabled {
+    background-color: rgba($color: #000000, $alpha: 0.1);
+}
+
+.img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    mat-icon {
+        height: 120px;
+        width: 120px;
+        font-size: 110px;
+        color: rgba($color: #000000, $alpha: 0.3);
+    }
+
+    .profile-img {
+        height: 120px;
+        width: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 1px solid lightgray;
+        margin: 12px;
+    }
+}

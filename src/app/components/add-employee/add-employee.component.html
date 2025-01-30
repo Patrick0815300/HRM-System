@@ -1,0 +1,104 @@
+<section (click)="onClose()">
+    <!-- Form umschließt den Inhalt -->
+    <form #employeeForm="ngForm" (ngSubmit)="addEmployee(employeeForm, fileUpload)" class="content" (click)="$event.stopPropagation()">
+      <h2>Füge einen neuen Mitarbeiter hinzu.</h2>
+  
+      <div class="employee-informations">
+        <div class="img-container">
+          <mat-icon *ngIf="!previewUrl">account_circle</mat-icon>
+          <img class="profile-img" *ngIf="previewUrl" [src]="previewUrl" alt="Vorschau" />
+          <input #fileUpload type="file" (change)="onFileSelected($event)">
+        </div>
+  
+        <!-- Name -->
+        <div class="single-info-container">
+          <label>Kompletter Name</label>
+          <div class="form">
+            <mat-icon>person</mat-icon>
+            <input
+              type="text"
+              name="name"
+              placeholder="Firstname & Lastname"
+              [(ngModel)]="employee.name"
+              #nameInput="ngModel"
+              required
+              minlength="3"
+            />
+          </div>
+          <!-- Fehlermeldung für Name -->
+          <div *ngIf="nameInput.touched && nameInput.invalid" class="error-message">
+            <span *ngIf="nameInput.errors?.['required']">Name ist erforderlich.</span>
+            <span *ngIf="nameInput.errors?.['minlength']">Name muss mindestens 3 Zeichen lang sein.</span>
+          </div>
+        </div>
+  
+        <!-- Telefonnummer -->
+        <div class="single-info-container">
+          <label>Telefonnummer</label>
+          <div class="form">
+            <mat-icon>call</mat-icon>
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Phone-Number"
+              [(ngModel)]="employee.phone"
+              #phoneInput="ngModel"
+              required
+            />
+          </div>
+          <div *ngIf="phoneInput.touched && phoneInput.invalid" class="error-message">
+            <span *ngIf="phoneInput.errors?.['required']">Telefonnummer ist erforderlich.</span>
+          </div>
+        </div>
+  
+        <!-- E-Mail -->
+        <div class="single-info-container">
+          <label>E-Mail</label>
+          <div class="form">
+            <mat-icon>mail</mat-icon>
+            <input
+              type="email"
+              name="email"
+              placeholder="Mail"
+              [(ngModel)]="employee.email"
+              #emailInput="ngModel"
+              required
+              email
+            />
+          </div>
+          <div *ngIf="emailInput.touched && emailInput.invalid" class="error-message">
+            <span *ngIf="emailInput.errors?.['required']">E-Mail ist erforderlich.</span>
+            <span *ngIf="emailInput.errors?.['email']">Ungültige E-Mail-Adresse.</span>
+          </div>
+        </div>
+  
+        <!-- Job Titel -->
+        <div class="single-info-container">
+          <label>Job Titel</label>
+          <div class="form">
+            <mat-icon>mail</mat-icon>
+            <input
+              type="text"
+              name="jobTitle"
+              placeholder="Job-Titel"
+              [(ngModel)]="employee.jobTitle"
+              #jobTitleInput="ngModel"
+              required
+            />
+          </div>
+          <div *ngIf="jobTitleInput.touched && jobTitleInput.invalid" class="error-message">
+            <span *ngIf="jobTitleInput.errors?.['required']">Job-Titel ist erforderlich.</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="bottom-menu">
+        <button class="add-employee-btn cancel" (click)="onClose()">Cancel</button>
+        <!-- Button deaktiviert, wenn Formular ungültig -->
+        <button class="add-employee-btn" [disabled]="employeeForm.invalid" type="submit">
+          Add Employee
+        </button>
+      </div>
+    </form>
+  </section>
+  

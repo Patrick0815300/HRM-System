@@ -1,0 +1,45 @@
+<section>
+
+    <div class="top">
+        <input type="checkbox" name="selected" id="" *ngIf="selectMode"> 
+        <span [ngClass]="{
+            'status': employee?.online === 'Online',
+            'offline': employee?.online === 'Offline',
+            'unavailable': employee?.online === '',
+          }">
+            {{ employee?.online || 'unavailable'}}
+          </span>       
+        <button>...</button>
+    </div>
+    
+    <div class="employee">
+        <img *ngIf="employee?.photoURL" [src]="employee?.photoURL" alt="employee">
+        <mat-icon *ngIf="!employee?.photoURL">account_circle</mat-icon>
+        <span class="name">{{ employee?.name }}</span>
+        <span class="jobTitle">{{ employee?.jobTitle }}</span>
+    </div>
+
+    <div class="bottom-info">
+        <div class="half">
+            <div>
+                <span>Department</span>
+                <span class="department">{{ employee?.department }}</span>
+            </div>
+            <div>
+                <span>Last Online</span>
+                <span class="date">{{ employee?.lastTimeOnline }}</span>
+            </div>
+        </div>
+
+        <a class="contact" type="mail" [href]="'mailto:' + (employee?.email || '')">
+            <mat-icon>mail</mat-icon>
+            {{ employee?.email }}
+        </a>
+        <a class="contact" type="phone" [href]="'mailto:' + (employee?.phone || '')">
+            <mat-icon>call</mat-icon>
+            {{ employee?.phone }}
+        </a>
+    </div>
+
+
+</section>

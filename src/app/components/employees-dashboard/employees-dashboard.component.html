@@ -1,0 +1,56 @@
+<section (click)="closeFilterList()">
+    <header>
+     <div class="left-side-header">
+         <h2>{{ (employees$ | async)?.length + ' Employees' || 'Keine Mitarbeiter vorhanden'}} </h2>
+         <span>+1 new hire</span>
+         <button (click)="toggleFilterList(); $event.stopPropagation()">
+             <mat-icon>filter_alt</mat-icon>
+             Filter
+
+             <div class="filter-list" *ngIf="showFilterList" (click)="$event.stopPropagation()">
+                <div *ngFor="let filter of filterList['Filter']">
+                  <button (click)="toggleDropdown(filter)" [ngClass]="{ 'border-bottom-btn': activeFilter === filter }">
+                    {{ filter }}
+                    <mat-icon>arrow_drop_down</mat-icon>
+                  </button>
+                  <div class="option-container" *ngIf="activeFilter === filter">
+                    <div class="option" *ngFor="let option of filterList[filter]; let i = index">
+                        <input 
+                            type="checkbox" 
+                            [id]="'checkbox'+i" 
+                            [value]="option" 
+                            [(ngModel)]="selectedOptions[option]"
+                            (change)="onCheckboxChange($event, option)">
+                        <label [for]="'checkbox'+i">{{ option }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+         </button>
+     </div>
+     <div class="right-side-header">
+         <button (click)="openAddEmployee()">+ Add Employee</button>
+     </div>
+    </header> 
+
+
+    <div class="card-container" *ngIf="paginatedEmployees$ | async as employees">
+        <app-employee-card 
+            *ngFor="let employee of employees"
+            [employee]="employee">
+        </app-employee-card>
+      </div>
+      
+      <mat-paginator
+        [length]="(employees$ | async)?.length || 0"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 20]"
+        (page)="onPageChange($event)">
+      </mat-paginator>
+
+    <app-add-employee 
+        *ngIf="showAddEmployee"
+        (closeOverlay)="openAddEmployee()">
+    </app-add-employee>
+ </section>

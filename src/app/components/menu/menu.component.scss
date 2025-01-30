@@ -1,0 +1,111 @@
+section {
+    height: 100vh;
+}
+
+.container {
+    background-color: #19212a;
+    color: #6e7580;
+    max-width: 75px;
+    height: 100%;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 64px;
+    padding-inline: 12px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 500ms ease-in-out;
+
+    &:hover {
+        max-width: 250px;
+        transition: all 125ms ease-in-out;
+        padding-inline: 24px;
+
+        .auth-user {
+            span {
+                display: block;
+                transition: opacity 350ms ease-in;
+            }
+        }
+
+        .list {
+            span {
+                display: block;
+                transition: opacity 350ms ease-in;
+                white-space: normal;
+            }
+        }
+
+        .list-container {
+            margin-top: 24px;
+        }
+    }
+}
+
+.auth-user {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+    height: 150px;
+
+    span {
+        display: none;
+    }
+
+    .name {
+        font-size: 2rem;
+    }
+
+    .position,
+    .user-info {
+        font-size: 1.25rem;
+    }
+}
+
+.list-container {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    box-sizing: border-box;
+}
+
+.list {
+    border-radius: 30px;
+
+    .title {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        box-sizing: border-box;
+
+        mat-icon {
+            padding: 6px;
+            border-radius: 20px;
+
+            &.active {
+                background-color: rgba($color: #000000, $alpha: 0.3);
+            }
+        }
+
+
+    }
+
+    span {
+        display: none;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+}
+
+.list-objects {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 16px;
+    gap: 16px;
+}
