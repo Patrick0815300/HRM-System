@@ -6,11 +6,13 @@ import { MainService } from '../../firestore-services/main.service';
 import { getDocs, Timestamp } from '@angular/fire/firestore';
 import { EmployeeService } from '../../firestore-services/employee.service';
 import { CommonModule } from '@angular/common';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button'
 
 @Component({
   selector: 'app-add-employee',
   standalone: true,
-  imports: [MatIconModule, FormsModule, CommonModule],
+  imports: [MatIconModule, FormsModule, CommonModule, MatMenuModule, MatButtonModule],
   templateUrl: './add-employee.component.html',
   styleUrl: './add-employee.component.scss'
 })
@@ -63,8 +65,6 @@ export class AddEmployeeComponent {
       console.log('Neuer Mitarbeiter:', this.employee);
       this.employeeService.addEmployee(this.employee, input)
       this.onClose();
-    } else {
-      console.log('Formular ist ungültig.');
     }
   }
 
@@ -72,8 +72,13 @@ export class AddEmployeeComponent {
     this.showDepartments = !this.showDepartments
   }
 
-  selectDepartment(department: string, event: Event) {
-    event.stopPropagation();
+  closeDepartmentMenu() {
+    if (this.showDepartments) {
+      this.showDepartments = false;
+    }
+  }
+
+  selectDepartment(department: string) {
     this.selectedDepartment = department;
     this.employee.department = this.selectedDepartment;
     this.showDepartments = false;

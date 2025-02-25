@@ -1,6 +1,6 @@
 <section (click)="onClose()">
     <!-- Form umschließt den Inhalt -->
-    <form #employeeForm="ngForm" (ngSubmit)="addEmployee(employeeForm, fileUpload)" class="content" (click)="$event.stopPropagation()">
+    <form #employeeForm="ngForm" (ngSubmit)="addEmployee(employeeForm, fileUpload)" class="content" (click)="$event.stopPropagation(); closeDepartmentMenu()">
       <h2>Füge einen neuen Mitarbeiter hinzu.</h2>
   
       <div class="employee-informations">
@@ -43,11 +43,13 @@
               placeholder="Phone-Number"
               [(ngModel)]="employee.phone"
               #phoneInput="ngModel"
+              pattern="^[0-9]+$"
               required
             />
           </div>
           <div *ngIf="phoneInput.touched && phoneInput.invalid" class="error-message">
             <span *ngIf="phoneInput.errors?.['required']">Telefonnummer ist erforderlich.</span>
+            <span *ngIf="phoneInput.errors?.['pattern']">Bitte nur Zahlen eingeben.</span>
           </div>
         </div>
   
@@ -88,6 +90,20 @@
           </div>
           <div *ngIf="jobTitleInput.touched && jobTitleInput.invalid" class="error-message">
             <span *ngIf="jobTitleInput.errors?.['required']">Job-Titel ist erforderlich.</span>
+          </div>
+        </div>
+
+        <!-- Department -->
+        <div class="single-info-container">
+          <label>Department</label>
+          <div class="form" (click)="$event.stopPropagation()">
+            <mat-icon>work</mat-icon>
+            <button (click)="toggleDepartments()">{{ selectedDepartment ||'Abteilung wählen' }}</button>
+            <div class="departments-menu" *ngIf="showDepartments">
+              <button *ngFor="let department of departments" (click)="selectDepartment(department)">
+                {{ department }}
+              </button>
+            </div>
           </div>
         </div>
       </div>

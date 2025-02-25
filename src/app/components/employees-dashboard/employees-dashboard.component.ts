@@ -61,17 +61,11 @@ export class EmployeesDashboardComponent implements OnInit {
   filterEmployees() {
     this.paginatedEmployees$ = this.filteredEmployees$?.pipe(
       map((employees: Employee[]) => {
-        const sortEmployees = employees.sort((a, b) => {
+        const sortEmployees = employees.sort((b, a) => {
           const dateA = a.createdAt.toDate();
           const dateB = b.createdAt.toDate();
           return dateA.getTime() - dateB.getTime();
         });
-
-        console.log(employees);
-
-
-        console.log(sortEmployees);
-
         const filtered = employees.filter(e => this.matchesSelectedOptions(e));
         return filtered.slice(0, this.pageSize);
       })

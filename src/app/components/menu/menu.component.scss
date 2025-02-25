@@ -15,25 +15,24 @@ section {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: all 500ms ease-in-out;
+    transition: all 250ms ease-in-out;
 
     &:hover {
         max-width: 250px;
-        transition: all 125ms ease-in-out;
+        //transition: all 300ms ease-in-out;
         padding-inline: 24px;
 
         .auth-user {
             span {
-                display: block;
-                transition: opacity 350ms ease-in;
+                opacity: 1;
+                visibility: visible;
             }
         }
 
         .list {
             span {
-                display: block;
-                transition: opacity 350ms ease-in;
-                white-space: normal;
+                opacity: 1;
+                visibility: visible;
             }
         }
 
@@ -50,7 +49,9 @@ section {
     height: 150px;
 
     span {
-        display: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 350ms;
     }
 
     .name {
@@ -96,9 +97,11 @@ section {
     }
 
     span {
-        display: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 350ms;
         cursor: pointer;
-        white-space: nowrap;
+        white-space: normal;
     }
 }
 
