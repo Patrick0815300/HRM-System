@@ -2,9 +2,9 @@
     <header>
      <div class="left-side-header">
          <h2>{{ (employees$ | async)?.length + ' Employees' || 'Keine Mitarbeiter vorhanden'}} </h2>
-         <span>+1 new hire</span>
+         <span class="new-hired">{{ countEmployeesCreatedToday$() | async }} new hire</span>
          <button (click)="toggleFilterList(); $event.stopPropagation()">
-             <mat-icon>filter_alt</mat-icon>
+             <mat-icon>filter_list</mat-icon>
              Filter
 
              <div class="filter-list" *ngIf="showFilterList" (click)="$event.stopPropagation()">
@@ -26,7 +26,20 @@
                   </div>
                 </div>
               </div>
-              
+         </button>
+
+
+         <button (click)="toggleSortList()">
+          <mat-icon>sort</mat-icon>
+          Sortieren
+
+          <div class="filter-list" *ngIf="showSortList">
+            <button  *ngFor="let option of sortList"
+                    (click)="setSortOrder(option)"
+                    [ngClass]="{'active-sort': sortOrder === option}">
+              {{ option }}
+            </button>
+          </div>
          </button>
      </div>
      <div class="right-side-header">

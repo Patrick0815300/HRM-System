@@ -30,6 +30,10 @@ header {
         font-size: 14px;
     }
 
+    .new-hired {
+        padding: 8px;
+    }
+
     button {
         display: flex;
         gap: 6px;
@@ -137,4 +141,8 @@ mat-paginator {
             margin-left: 16px;
         }
     }
+}
+
+.active-sort {
+    background-color: aquamarine !important;
 }

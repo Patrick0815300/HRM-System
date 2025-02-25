@@ -26,6 +26,7 @@ import { FormsModule } from '@angular/forms';
 export class EmployeesDashboardComponent implements OnInit {
   showAddEmployee: boolean = false;
   showFilterList: boolean = false;
+  showSortList: boolean = false;
   pageSize: number = 10;
   activeFilter: string | null = null;
   selectedOptions: { [key: string]: boolean } = {};
@@ -42,6 +43,9 @@ export class EmployeesDashboardComponent implements OnInit {
     Abteilung: ['Web_Development', 'Design']
   };
 
+  sortList: ('newest' | 'oldest')[] = ['newest', 'oldest'];
+  sortOrder: 'newest' | 'oldest' = 'newest';
+
 
   constructor(private employeeService: EmployeeService) {
     this.initializeSelectedOptions();
@@ -54,17 +58,19 @@ export class EmployeesDashboardComponent implements OnInit {
     this.filterEmployees();
   }
 
-  sortEmployees() {
-
+  setSortOrder(order: 'newest' | 'oldest') {
+    this.sortOrder = order;
+    this.showSortList = false;
+    this.filterEmployees();
   }
 
   filterEmployees() {
     this.paginatedEmployees$ = this.filteredEmployees$?.pipe(
       map((employees: Employee[]) => {
         const sortEmployees = employees.sort((b, a) => {
-          const dateA = a.createdAt.toDate();
-          const dateB = b.createdAt.toDate();
-          return dateA.getTime() - dateB.getTime();
+          const timeA = a.createdAt.toDate().getTime();
+          const timeB = b.createdAt.toDate().getTime();
+          return this.sortOrder === 'newest' ? timeA - timeB : timeB - timeA;
         });
         const filtered = employees.filter(e => this.matchesSelectedOptions(e));
         return filtered.slice(0, this.pageSize);
@@ -123,6 +129,23 @@ export class EmployeesDashboardComponent implements OnInit {
     }
   }
 
+  countEmployeesCreatedToday$(): Observable<number> {
+    const today = new Date();
+    const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+
+    return this.filteredEmployees$!.pipe(
+      map((employees: Employee[]) =>
+        employees.filter(employee => {
+          const createdDate = employee.createdAt.toDate();
+          return createdDate >= startOfDay && createdDate < endOfDay;
+        }).length
+      )
+    );
+  }
+
+
+
   openAddEmployee() {
     this.showAddEmployee = !this.showAddEmployee;
   }
@@ -141,5 +164,9 @@ export class EmployeesDashboardComponent implements OnInit {
 
   toggleCheckbox(index: number) {
     this.selectedOptions[index] = !this.selectedOptions[index];
+  }
+
+  toggleSortList() {
+    this.showSortList = !this.showSortList;
   }
 }
