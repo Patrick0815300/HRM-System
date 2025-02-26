@@ -1,3 +1,5 @@
+@import '../../../assets/colors';
+
 :host {
     width: 100%;
 }
@@ -65,6 +67,7 @@ app-add-employee {
 }
 
 .card-container {
+    background-color: $color-neutral;
     display: flex;
     gap: 16px;
     flex: 1;
@@ -144,5 +147,6 @@ mat-paginator {
 }
 
 .active-sort {
-    background-color: aquamarine !important;
+    background-color: $color-accent !important;
+    color: $color-text !important;
 }
