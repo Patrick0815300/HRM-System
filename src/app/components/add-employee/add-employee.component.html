@@ -93,20 +93,44 @@
           </div>
         </div>
 
-        <!-- Department -->
-        <div class="single-info-container">
-          <label>Department</label>
-          <div class="form" (click)="$event.stopPropagation()">
-            <mat-icon>work</mat-icon>
-            <button (click)="toggleDepartments()">{{ selectedDepartment ||'Abteilung wählen' }}</button>
-            <div class="departments-menu" *ngIf="showDepartments">
-              <button *ngFor="let department of departments" (click)="selectDepartment(department)">
-                {{ department }}
-              </button>
+        <div class="dropdown-container-bottom">
+           <!-- Department -->
+          <div class="single-info-container">
+            <label>Department</label>
+            <div class="form" (click)="$event.stopPropagation()">
+              <mat-icon>work</mat-icon>
+              <button (click)="toggleDepartments()">{{ selectedDepartment ||'Abteilung wählen' }}</button>
+              <div class="departments-menu" *ngIf="showDepartments">
+                <button *ngFor="let department of departments" (click)="selectDepartment(department)">
+                  {{ department }}
+                </button>
+              </div>
             </div>
           </div>
+
+          <!-- Role -->
+          <div class="single-info-container">
+            <label>Role</label>
+            <div class="form" (click)="$event.stopPropagation()">
+              <mat-icon>work</mat-icon>
+              <button (click)="toggleRoles()">{{ selectedRole ||'Role wählen' }}</button>
+              <div class="departments-menu" *ngIf="showRoles">
+                <button *ngFor="let role of roles" (click)="selectRole(role)">
+                  {{ role }}
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
+
+       
+      
+      
+      
+      
       </div>
+
   
       <div class="bottom-menu">
         <button class="add-employee-btn cancel" (click)="onClose()">Cancel</button>

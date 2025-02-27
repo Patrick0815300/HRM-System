@@ -12,31 +12,28 @@ import { RouterLink } from '@angular/router';
   styleUrl: './menu.component.scss',
 })
 export class MenuComponent {
-  menuItems = [
-    { icon: 'dashboard', title: 'Dashboard', link: '/' },
-    { icon: 'today', title: 'Urlaub & Arbeitszeiten', subItems: ['Urlaubsantrag', 'Arbeitszeiten'], open: false, link: '/timeDasboard' },
-    { icon: 'group', title: 'Mitarbeiter & Kommunikation', subItems: ['Mitarbeiterverwaltung', 'Nachrichten'], open: false, link: '/employeesDashboard' },
-    { icon: 'school', title: 'Schulung & Weiterentwicklung', subItems: ['Schulungsangebote', 'Zertifikate'], open: false, link: '/trainingDasboard' },
-    { icon: 'settings', title: 'Einstellungen & Dokumente', subItems: ['Benutzereinstellungen', 'Dokumentenverwaltung'], open: false, link: '/settingsDashboard' },
+  hrItems = [
+    { icon: 'dashboard', title: 'Dashboard', link: '/hrDashboard' },
+    { icon: 'group', title: 'Mitarbeiterverwaltung', link: '/employeesDashboard' },
+    { icon: 'logout', title: 'Leave Management', link: '/hrLeaveDasboard' },
+    { icon: 'schedule', title: 'Zeiterfassung', link: '/hrTimeDasboard' },
+    { icon: 'payments', title: 'Payroll', link: '/hrPayDasboard' },
+    { icon: 'sweep', title: 'Performance & Entwicklung', link: '/hrPerformanceDasboard' },
+    { icon: 'news', title: 'Kommunikation & News', link: '/communicationDasboard' },
+    { icon: 'settings', title: 'Einstellungen', link: '/settingsDasboard' },
   ];
 
-  activeIndex: number = 0;
+  employeesItems = [
+    { icon: 'dashboard', title: 'Dashboard', link: '/empDashboard' },
+    { icon: 'logout', title: 'Leave Management', link: '/empLeaveDasboard' },
+    { icon: 'schedule', title: 'Zeiterfassung', link: '/empTimeDasboard' },
+    { icon: 'payments', title: 'Payroll', link: '/empPayDasboard' },
+    { icon: 'sweep', title: 'Performance & Entwicklung', link: '/empPerformanceDasboard' },
+    { icon: 'news', title: 'Kommunikation & News', link: '/communicationDasboard' },
+    { icon: 'settings', title: 'Einstellungen', link: '/settingsDasboard' },
+  ]
 
-  toggleList(index: number) {
-    const isAlreadyOpen = this.menuItems[index].open;
-    this.menuItems.forEach((element, i) => {
-      if (i !== index) {
-        element.open = false;
-      }
-    });
-    this.menuItems[index].open = !isAlreadyOpen;
-    if (this.menuItems[index].open) {
-      this.activeIndex = index;
-    }
-  }
-
-  closeAllMenus() {
-    this.menuItems.forEach(item => item.open = false);
-  }
+  role: string = 'hr'
 
 }
+

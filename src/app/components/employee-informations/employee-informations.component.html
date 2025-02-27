@@ -1,1 +1,16 @@
-<p>employee-informations works!</p>
+<section>
+    <header>
+        <div (click)="tab=1" [class.activeTab]="tab===1">Allgemeines</div>
+        <div (click)="tab=2" [class.activeTab]="tab===2">Verträge & Dokumente</div>
+        <div (click)="tab=3" [class.activeTab]="tab===3">Abwesenheit & Zeiterfassung</div>
+        <div (click)="tab=4" [class.activeTab]="tab===4">Performance & Entwicklung</div>
+        <div (click)="tab=5" [class.activeTab]="tab===5">Onboarding / Offboarding</div>
+    </header>
+    <main>
+        <app-employee-general-tab *ngIf="tab===1"></app-employee-general-tab>
+        <app-employee-contract-tab *ngIf="tab===2"></app-employee-contract-tab>
+        <app-employee-leavetime-tab *ngIf="tab===3"></app-employee-leavetime-tab>
+        <app-employee-performance-tab *ngIf="tab===4"></app-employee-performance-tab>
+        <app-employee-onboarding-tab *ngIf="tab===5"></app-employee-onboarding-tab>
+    </main>
+</section>

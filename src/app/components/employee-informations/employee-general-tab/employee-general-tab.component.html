@@ -1,0 +1,19 @@
+<ng-container *ngIf="employee$ | async as employee; else loading">
+    <h2>Allgemeine Informationen</h2>
+    <p>Bild: <img [src]="employee.photoURL" alt=""></p>
+    <p>Id: {{ employee.id }}</p>    
+    <p>Angelegt: {{ employee.createdAt.toDate() | date:'yyyy/MM/dd HH:mm' }}</p>
+    <p>Name: {{ employee.name }}</p>
+    <p>Rolle: {{ employee.role }}</p>
+    <p>Abteilung: {{ employee.department }}</p>
+    <p>Job Titel: {{ employee.jobTitle }}</p>
+    <p>Email: {{ employee.email }}</p>
+    <p>Phone: {{ employee.phone }}</p>
+    <p>Online: {{ employee.online }}</p>
+    <p>Letztes mal Online: {{ employee.lastTimeOnline }}</p>
+
+</ng-container>
+
+  <ng-template #loading>
+    <p>Lade Daten ...</p>
+  </ng-template>

@@ -8,6 +8,7 @@ import { Observable, filter, map } from 'rxjs';
 import { Employee } from '../../models/employee';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-employees-dashboard',
@@ -18,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     EmployeeCardComponent,
     MatPaginatorModule,
-    FormsModule
+    FormsModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './employees-dashboard.component.html',
   styleUrl: './employees-dashboard.component.scss'

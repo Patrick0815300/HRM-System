@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, onSnapshot, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, docData, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { Employee } from '../models/employee';
 import { MainService } from './main.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +31,11 @@ export class EmployeeService {
       }));
       this.employeesSubject.next(employees);
     });
+  }
+
+  loadEmployeeDataById(id: string): Observable<any> {
+    const docRef = doc(this.firestore, 'employees', id);
+    return docData(docRef);
   }
 
 }

@@ -1,22 +1,18 @@
 <section>
-    <div class="container" (mouseleave)="closeAllMenus()">
-        <div class="auth-user">
-            <span class="name">Patrick Nigrin</span>
-            <span class="position">Business Manager</span>
-            <span class="user-info">0176123456789</span>
-        </div>
-        <div class="list-container">
-            <button 
-                class="list" 
-                *ngFor="let item of menuItems; let i = index">
-                <div class="title" (click)="toggleList(i)" [routerLink]="[item.link]">
-                    <mat-icon [ngClass]="{ 'active': activeIndex === i }">{{ item.icon }}</mat-icon>
-                    <span>{{ item.title }}</span>
-                </div>
-                <div class="list-objects" *ngIf="item.open && i > 0">
-                    <span *ngFor="let subItem of item.subItems">{{ subItem }}</span>
-                </div>
-            </button>
-        </div>
+    <div class="container">
+      <div class="auth-user">
+        <span class="name">Patrick Nigrin</span>
+        <span class="position">Business Manager</span>
+        <span class="user-info">0176123456789</span>
+      </div>
+      <div class="list-container">
+        <button class="list" *ngFor="let item of (role === 'hr' ? hrItems : employeesItems)">
+          <div class="title" [routerLink]="[item.link]">
+            <mat-icon>{{ item.icon }}</mat-icon>
+            <span>{{ item.title }}</span>
+          </div>
+        </button>
+      </div>
     </div>
-</section> 
+  </section>
+  

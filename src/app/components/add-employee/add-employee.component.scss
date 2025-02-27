@@ -130,3 +130,13 @@ button:disabled {
     padding: 12px;
     gap: 8px;
 }
+
+.dropdown-container-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+
+    div {
+        flex: 1;
+    }
+}

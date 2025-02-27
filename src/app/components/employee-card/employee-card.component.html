@@ -1,5 +1,4 @@
 <section>
-
     <div class="top">
         <input type="checkbox" name="selected" id="" *ngIf="selectMode"> 
         <span [ngClass]="{
@@ -9,7 +8,7 @@
           }">
             {{ employee?.online || 'unavailable'}}
           </span>       
-        <button>...</button>
+        <button [routerLink]="['/employeeInformations', employee?.id]">...</button>
     </div>
     
     <div class="employee">

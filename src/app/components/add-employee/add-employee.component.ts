@@ -30,6 +30,7 @@ export class AddEmployeeComponent {
     lastTimeOnline: 0,
     online: '',
     photoURL: '',
+    role: '',
   };
 
   departments = [
@@ -38,8 +39,15 @@ export class AddEmployeeComponent {
     'Marketing',
   ];
 
+  roles = [
+    'hr',
+    'employee',
+  ];
+
   showDepartments: boolean = false;
+  showRoles: boolean = false;
   selectedDepartment: string = '';
+  selectedRole: string = '';
   previewUrl: string | ArrayBuffer | null | undefined;
 
   constructor(private mainService: MainService, private employeeService: EmployeeService) {
@@ -82,5 +90,21 @@ export class AddEmployeeComponent {
     this.selectedDepartment = department;
     this.employee.department = this.selectedDepartment;
     this.showDepartments = false;
+  }
+
+  toggleRoles() {
+    this.showRoles = !this.showRoles
+  }
+
+  closeRoleMenu() {
+    if (this.showRoles) {
+      this.showRoles = false;
+    }
+  }
+
+  selectRole(role: string) {
+    this.selectedRole = role;
+    this.employee.role = this.selectedRole;
+    this.showRoles = false;
   }
 }

@@ -1,0 +1,62 @@
+:host {
+    width: 100%;
+}
+
+section {
+    padding: 24px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+
+    div {
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        width: 100%;
+        padding: 8px 0;
+        padding-left: 8px;
+        border-bottom: 1px solid rgb(208, 208, 208);
+
+        &:first-child {
+            border-left: unset;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 100%;
+            height: 2px;
+            background-color: rgb(157, 157, 157);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 125ms ease-in-out, background-color 250ms ease;
+        }
+
+        &:hover::after {
+            transform: scaleX(1);
+        }
+
+        &.activeTab::after {
+            transform: scaleX(1);
+            background-color: #007acc;
+        }
+
+        &:active {
+            background-color: whitesmoke;
+        }
+
+
+    }
+}
+
+
+main {
+    max-height: 100%;
+}

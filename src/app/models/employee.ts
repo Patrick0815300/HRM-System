@@ -11,4 +11,5 @@ export interface Employee {
     lastTimeOnline: Date | number;
     online: string;
     photoURL: string;
+    role: string
 }
