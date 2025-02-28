@@ -1,19 +1,63 @@
-<ng-container *ngIf="employee$ | async as employee; else loading">
+<section>
+  <header>
     <h2>Allgemeine Informationen</h2>
-    <p>Bild: <img [src]="employee.photoURL" alt=""></p>
-    <p>Id: {{ employee.id }}</p>    
-    <p>Angelegt: {{ employee.createdAt.toDate() | date:'yyyy/MM/dd HH:mm' }}</p>
-    <p>Name: {{ employee.name }}</p>
-    <p>Rolle: {{ employee.role }}</p>
-    <p>Abteilung: {{ employee.department }}</p>
-    <p>Job Titel: {{ employee.jobTitle }}</p>
-    <p>Email: {{ employee.email }}</p>
-    <p>Phone: {{ employee.phone }}</p>
-    <p>Online: {{ employee.online }}</p>
-    <p>Letztes mal Online: {{ employee.lastTimeOnline }}</p>
+    <button (click)="toggleEditMode()">
+      {{ isEditMode ? 'Abbrechen' : 'Bearbeiten' }}
+    </button>
+  </header>
+  
+  <ng-container *ngIf="employee$ | async as employee; else loading">
 
-</ng-container>
-
+    <div class="informations-container">
+      <div *ngIf="!isEditMode">
+        <p>Bild: 
+          <img *ngIf="employee?.photoURL" [src]="employee?.photoURL" alt="employee">
+          <mat-icon *ngIf="!employee?.photoURL">account_circle</mat-icon>
+        </p>
+        <p>Id: {{ employee.id }}</p>    
+        <p>Angelegt: {{ employee.createdAt.toDate() | date:'yyyy/MM/dd HH:mm' }}</p>
+        <p>Name: {{ employee.name }}</p>
+        <p>Rolle: {{ employee.role }}</p>
+        <p>Abteilung: {{ employee.department }}</p>
+        <p>Job Titel: {{ employee.jobTitle }}</p>
+        <p>Email: {{ employee.email }}</p>
+        <p>Phone: {{ employee.phone }}</p>
+        <p>Online: {{ employee.online }}</p>
+        <p>Letztes mal Online: {{ employee.lastTimeOnline }}</p>
+      </div>
+    
+      <div class="edit-container" *ngIf="isEditMode">
+        <h2>Bearbeiten</h2>
+        <label>Bild:
+          <input #fileUpload type="file" accept="image/*" (change)="onFileSelected($event)">
+          <img *ngIf="previewUrl" [src]="previewUrl" alt="Vorschau">
+        </label>
+        <label>Name:
+          <input [(ngModel)]="employee.name">
+        </label>
+        <label>Abteilung:
+          <input [(ngModel)]="employee.department">
+        </label>
+        <label>Job Titel:
+          <input [(ngModel)]="employee.jobTitle">
+        </label>
+        <label>Rolle:
+          <input [(ngModel)]="employee.role">
+        </label>
+        <label>Email:
+          <input [(ngModel)]="employee.email">
+        </label>
+        <label>Phone:
+          <input [(ngModel)]="employee.phone">
+        </label>
+        
+        <button (click)="saveChanges(employee, fileUpload)">Speichern</button>
+      </div>
+    </div>
+  </ng-container>
+  
   <ng-template #loading>
     <p>Lade Daten ...</p>
   </ng-template>
+</section>
+

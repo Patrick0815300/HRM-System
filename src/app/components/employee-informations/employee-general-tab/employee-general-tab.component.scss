@@ -1,0 +1,29 @@
+button {
+    border: 1px solid grey;
+    border-radius: 16px;
+    background-color: whitesmoke;
+    padding: 8px 16px;
+    width: fit-content;
+
+    &:hover {
+        background-color: rgb(197, 197, 197);
+    }
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+}
+
+.edit-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+img {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+}

@@ -1,0 +1,9 @@
+.add-contract-container {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+
+    label {
+        width: fit-content;
+    }
+}

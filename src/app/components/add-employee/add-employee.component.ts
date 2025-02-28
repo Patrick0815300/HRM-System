@@ -70,7 +70,6 @@ export class AddEmployeeComponent {
 
   addEmployee(employeeForm: NgForm, input: HTMLInputElement) {
     if (employeeForm.valid) {
-      console.log('Neuer Mitarbeiter:', this.employee);
       this.employeeService.addEmployee(this.employee, input)
       this.onClose();
     }

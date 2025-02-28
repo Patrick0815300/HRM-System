@@ -19,7 +19,7 @@ export class EmployeeService {
     const docRef = await addDoc(employeesCollectionRef, employee);
     await updateDoc(docRef, { id: docRef.id });
     if (input) {
-      this.mainSevice.uploadFile(input, docRef.id)
+      this.mainSevice.uploadEmployeeImageFile(input, docRef.id)
     }
   }
 
@@ -36,6 +36,11 @@ export class EmployeeService {
   loadEmployeeDataById(id: string): Observable<any> {
     const docRef = doc(this.firestore, 'employees', id);
     return docData(docRef);
+  }
+
+  updateEmployee(id: string, updatedData: any): Promise<void> {
+    const docRef = doc(this.firestore, 'employees', id);
+    return updateDoc(docRef, updatedData);
   }
 
 }

@@ -1,1 +1,70 @@
-<p>employee-contract-tab works!</p>
+<section>
+    <ng-container *ngIf="employee$ | async as employee; else loading">
+        <header>
+            <h2>Dokumente & Verträge von {{ employee.name }}</h2>
+        </header>
+
+       
+        
+        <ng-container class="information-container" *ngIf="contracts$ | async as contracts; else loading">
+            <button 
+                *ngIf="contracts.length > 0" 
+                (click)="toggleAddContractContainer()">
+                {{ addContractContainer ? 'Abbrechen' : 'Vertrag hinzufügen' }}
+            </button>   
+
+            <div >
+                <form #contractForm="ngForm" class="add-contract-container" *ngIf="contracts.length === 0 || addContractContainer" (ngSubmit)="onSubmitContract(contractForm)">
+                    <h3>Bitte fügen Sie einen Vertrag hinzu!</h3>
+                    
+                    <label>
+                      Vertragstyp
+                      <input type="text" name="contractType" ngModel required>
+                    </label>
+                    
+                    <label>
+                      Startdatum
+                      <input type="date" name="startDate" ngModel required>
+                    </label>
+                    
+                    <label>
+                      Enddatum
+                      <input type="date" name="endDate" ngModel>
+                    </label>
+                    
+                    <label>
+                      Stundenanzahl
+                      <input type="number" name="hoursPerWeek" ngModel>
+                    </label>
+                    
+                    <label>
+                      Gehalt
+                      <input type="number" name="salary" ngModel>€
+                    </label>
+                    
+                    <label>
+                      Vertrag aktiv
+                      <input type="checkbox" name="isActive" ngModel>
+                    </label>
+                    
+                    <label>
+                      Dokument (nur PDF erlaubt) <br>
+                      <input type="file" name="files" accept=".pdf" multiple (change)="onFilesSelected($event)">
+                    </label>
+                    
+                    <button type="submit">Vertrag anlegen</button>
+                </form>
+                  
+            </div>
+        </ng-container>
+
+    </ng-container>
+    
+    <ng-template #loading>
+        <p>Lade Daten ...</p>
+    </ng-template>
+</section>
+
+
+
+
