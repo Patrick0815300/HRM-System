@@ -1,0 +1,30 @@
+<ng-container *ngIf="contracts$ | async as contracts">
+    <div *ngFor="let contract of contracts" class="contract-card">
+      <h3>{{ contract.contractType }}</h3>
+      <p><strong>ID:</strong> {{ contract.id }}</p>
+      <p><strong>Startdatum:</strong> {{ contract.startDate.toDate() | date:'yyyy/MM/dd' }}</p>
+      <p *ngIf="contract.endDate">
+        <strong>Enddatum:</strong> {{ contract.endDate.toDate() | date:'yyyy/MM/dd' }}
+      </p>
+      <p *ngIf="contract.hoursPerWeek">
+        <strong>Stunden pro Woche:</strong> {{ contract.hoursPerWeek }}
+      </p>
+      <p *ngIf="contract.salary">
+        <strong>Gehalt:</strong> {{ contract.salary }} €
+      </p>
+      <p>
+        <strong>Status:</strong> {{ contract.isActive ? 'Aktiv' : 'Inaktiv' }}
+      </p>
+      <p *ngIf="contract.documentURL">
+        <strong>Dokument:</strong>
+        <a [href]="contract.documentURL" target="_blank">
+          {{ contract.fileName || 'Vertrag anzeigen' }}
+        </a>
+      </p>
+      <p>
+        <strong>Erstellt am:</strong>
+        {{ contract.createdAt.toDate() | date:'yyyy/MM/dd HH:mm' }}
+      </p>
+    </div>
+  </ng-container>
+  

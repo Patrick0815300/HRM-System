@@ -8,11 +8,12 @@ import { ContractService } from '../../../firestore-services/contract.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Contract } from '../../../models/contract.model';
 import { Timestamp } from '@angular/fire/firestore';
+import { EmployeeContractsInformationsComponent } from './employee-contracts-informations/employee-contracts-informations.component';
 
 @Component({
   selector: 'app-employee-contract-tab',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, EmployeeContractsInformationsComponent],
   templateUrl: './employee-contract-tab.component.html',
   styleUrl: './employee-contract-tab.component.scss'
 })
@@ -41,12 +42,21 @@ export class EmployeeContractTabComponent {
   async onSubmitContract(form: NgForm) {
     if (form.invalid) return;
     const vals = form.value;
-    const newContract: Contract = { contractType: vals.contractType, startDate: Timestamp.fromDate(new Date(vals.startDate)), endDate: vals.endDate ? Timestamp.fromDate(new Date(vals.endDate)) : undefined, hoursPerWeek: vals.hoursPerWeek ? +vals.hoursPerWeek : undefined, salary: vals.salary ? +vals.salary : undefined, isActive: vals.isActive || false, createdAt: Timestamp.fromDate(new Date()) };
+    const newContract: Contract = {
+      contractType: vals.contractType,
+      startDate: Timestamp.fromDate(new Date(vals.startDate)),
+      ...(vals.endDate ? { endDate: Timestamp.fromDate(new Date(vals.endDate)) } : {}),
+      hoursPerWeek: vals.hoursPerWeek ? +vals.hoursPerWeek : undefined,
+      salary: vals.salary ? +vals.salary : undefined,
+      isActive: vals.isActive || false,
+      createdAt: Timestamp.fromDate(new Date())
+    };
     const urls = await this.fileUpload();
     if (urls.length) newContract.documentURL = urls[0];
     await this.contractService.addContract(this.employeeId, newContract);
     form.resetForm();
   }
+
 
 
   onFilesSelected(event: Event) {

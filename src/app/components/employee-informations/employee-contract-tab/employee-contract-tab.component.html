@@ -11,8 +11,10 @@
                 *ngIf="contracts.length > 0" 
                 (click)="toggleAddContractContainer()">
                 {{ addContractContainer ? 'Abbrechen' : 'Vertrag hinzufügen' }}
-            </button>   
-
+            </button>
+            
+            <app-employee-contracts-informations [contracts$]="contracts$"></app-employee-contracts-informations>
+            
             <div >
                 <form #contractForm="ngForm" class="add-contract-container" *ngIf="contracts.length === 0 || addContractContainer" (ngSubmit)="onSubmitContract(contractForm)">
                     <h3>Bitte fügen Sie einen Vertrag hinzu!</h3>
