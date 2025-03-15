@@ -47,3 +47,6 @@ Thumbs.db
 .runtimeconfig.json
 
 src/app/app.config.ts
+
+# Supabase Config
+src/app/supabaseClient.ts

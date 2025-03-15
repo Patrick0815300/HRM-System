@@ -7,11 +7,10 @@
   </header>
   
   <ng-container *ngIf="employee$ | async as employee; else loading">
-
     <div class="informations-container">
       <div *ngIf="!isEditMode">
         <p>Bild: 
-          <img *ngIf="employee?.photoURL" [src]="employee?.photoURL" alt="employee">
+          <img *ngIf="employee?.photoURL else loading" [src]="employee?.photoURL" alt="employee">
           <mat-icon *ngIf="!employee?.photoURL">account_circle</mat-icon>
         </p>
         <p>Id: {{ employee.id }}</p>    

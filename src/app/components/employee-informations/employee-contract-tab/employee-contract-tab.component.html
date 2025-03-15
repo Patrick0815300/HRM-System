@@ -4,8 +4,6 @@
             <h2>Dokumente & Verträge von {{ employee.name }}</h2>
         </header>
 
-       
-        
         <ng-container class="information-container" *ngIf="contracts$ | async as contracts; else loading">
             <button 
                 *ngIf="contracts.length > 0" 
@@ -13,15 +11,19 @@
                 {{ addContractContainer ? 'Abbrechen' : 'Vertrag hinzufügen' }}
             </button>
             
-            <app-employee-contracts-informations [contracts$]="contracts$"></app-employee-contracts-informations>
+            <app-employee-contracts-informations [contracts$]="contracts$" [employeeId]="employeeId" ></app-employee-contracts-informations>
             
-            <div >
+            <div>
                 <form #contractForm="ngForm" class="add-contract-container" *ngIf="contracts.length === 0 || addContractContainer" (ngSubmit)="onSubmitContract(contractForm)">
                     <h3>Bitte fügen Sie einen Vertrag hinzu!</h3>
                     
                     <label>
                       Vertragstyp
-                      <input type="text" name="contractType" ngModel required>
+                      <select name="contractType" id="" ngModel required>
+                        <option value="">Vollzeit</option>
+                        <option value="">Teilzeit</option>
+                        <option value="">Elternzeit</option>
+                      </select>
                     </label>
                     
                     <label>

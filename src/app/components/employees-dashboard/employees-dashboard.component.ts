@@ -9,6 +9,7 @@ import { Employee } from '../../models/employee';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MainService } from '../../firestore-services/main.service';
 
 @Component({
   selector: 'app-employees-dashboard',
@@ -49,7 +50,7 @@ export class EmployeesDashboardComponent implements OnInit {
   sortOrder: 'newest' | 'oldest' = 'newest';
 
 
-  constructor(private employeeService: EmployeeService) {
+  constructor(private employeeService: EmployeeService, private mainService: MainService) {
     this.initializeSelectedOptions();
   }
 

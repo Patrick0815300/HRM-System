@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, doc, updateDoc } from '@angular/fire/firestore';
 import { getDownloadURL, ref, Storage, uploadBytes } from '@angular/fire/storage';
+import { supabase } from '../supabaseClient';
 
 @Injectable({
   providedIn: 'root'
@@ -27,4 +28,13 @@ export class MainService {
 
     input.value = '';
   }
+
+
+
+  async getAllTables() {
+    const { data, error } = await supabase.from('employees').select('*');
+    if (error) throw error;
+    return data;
+  }
+
 }

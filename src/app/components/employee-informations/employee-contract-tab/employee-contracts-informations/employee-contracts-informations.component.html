@@ -1,19 +1,49 @@
 <ng-container *ngIf="contracts$ | async as contracts">
-    <div *ngFor="let contract of contracts" class="contract-card">
+  <div *ngFor="let contract of contracts" class="contract-card">
+    <div *ngIf="editingContractId !== contract.id; else editMode">
       <h3>{{ contract.contractType }}</h3>
       <p><strong>ID:</strong> {{ contract.id }}</p>
       <p><strong>Startdatum:</strong> {{ contract.startDate.toDate() | date:'yyyy/MM/dd' }}</p>
-      <p *ngIf="contract.endDate">
-        <strong>Enddatum:</strong> {{ contract.endDate.toDate() | date:'yyyy/MM/dd' }}
+      <p *ngIf="contract.endDate"><strong>Enddatum:</strong> {{ contract.endDate.toDate() | date:'yyyy/MM/dd' }}</p>
+      <p *ngIf="contract.hoursPerWeek"><strong>Stunden/Woche:</strong> {{ contract.hoursPerWeek }}</p>
+      <p *ngIf="contract.salary"><strong>Gehalt:</strong> {{ contract.salary }} €</p>
+      <p><strong>Status:</strong> {{ contract.isActive ? 'Aktiv' : 'Inaktiv' }}</p>
+      <p *ngIf="contract.documentURL">
+        <strong>Dokument:</strong>
+        <a [href]="contract.documentURL" target="_blank">
+          {{ contract.fileName || 'Vertrag anzeigen' }}
+        </a>
       </p>
-      <p *ngIf="contract.hoursPerWeek">
-        <strong>Stunden pro Woche:</strong> {{ contract.hoursPerWeek }}
-      </p>
-      <p *ngIf="contract.salary">
-        <strong>Gehalt:</strong> {{ contract.salary }} €
+      <p><strong>Erstellt:</strong> {{ contract.createdAt.toDate() | date:'yyyy/MM/dd HH:mm' }}</p>
+      <button (click)="toggleEdit(contract.id!)">Editieren</button>
+    </div>
+    <ng-template #editMode>
+      <h3>
+        <input [(ngModel)]="contract.contractType" placeholder="Vertragstyp">
+      </h3>
+      <p><strong>ID:</strong> {{ contract.id }}</p>
+      <p>
+        <strong>Startdatum:</strong>
+        <input type="date" [(ngModel)]="contract.startDateInput">
       </p>
       <p>
-        <strong>Status:</strong> {{ contract.isActive ? 'Aktiv' : 'Inaktiv' }}
+        <strong>Enddatum:</strong>
+        <input type="date" [(ngModel)]="contract.endDateInput">
+      </p>
+      <p>
+        <strong>Stunden/Woche:</strong>
+        <input type="number" [(ngModel)]="contract.hoursPerWeek">
+      </p>
+      <p>
+        <strong>Gehalt:</strong>
+        <input type="number" [(ngModel)]="contract.salary"> €
+      </p>
+      <p>
+        <strong>Status:</strong>
+        <select [(ngModel)]="contract.isActive">
+          <option [ngValue]="true">Aktiv</option>
+          <option [ngValue]="false">Inaktiv</option>
+        </select>
       </p>
       <p *ngIf="contract.documentURL">
         <strong>Dokument:</strong>
@@ -22,9 +52,11 @@
         </a>
       </p>
       <p>
-        <strong>Erstellt am:</strong>
+        <strong>Erstellt:</strong>
         {{ contract.createdAt.toDate() | date:'yyyy/MM/dd HH:mm' }}
       </p>
-    </div>
-  </ng-container>
-  
+      <button (click)="saveEdit(contract)">Speichern</button>
+      <button (click)="cancelEdit()">Abbrechen</button>
+    </ng-template>
+  </div>
+</ng-container>

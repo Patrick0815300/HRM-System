@@ -11,4 +11,6 @@ export interface Contract {
     documentURL?: string; // Firebase Storage URL zum Vertrag
     fileName?: string; // Original-Dateiname der hochgeladenen Datei
     createdAt: Timestamp; // Wann wurde der Vertrag gespeichert?
+    startDateInput?: string;
+    endDateInput?: string;
 }
